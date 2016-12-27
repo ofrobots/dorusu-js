@@ -122,8 +122,9 @@ message HelloReply {
 
 ```javascript
 
-var protobuf = require('dorusu/protobuf');
-var server = require('dorusu/server');
+var dorusu = require('dorusu');
+var protobuf = dorusu.pb;
+var server = dorusu.server;
 
 /**
  * Implements the SayHello RPC method.
@@ -147,7 +148,7 @@ function sayHello(request, response) {
 function main() {
   var hellopb = protobuf.requireProto('./helloworld', require);
   var app = hellopb.helloworld.Greeter.serverApp;
-  app.register('/helloworld/SayHello', sayHello);
+  app.register('/helloworld.Greeter/SayHello', sayHello);
 
   /* server.raw.CreateServer is insecure, server.createServer is alway secure */
   s = server.raw.createServer({
@@ -164,7 +165,7 @@ main();
 ### Access greetings with a client: helloworld_client.js
 
 ```javascript
-var protobuf = require('dorusu/protobuf');
+var protobuf = require('dorusu').pb;
 
 function main() {
   var hellopb = protobuf.requireProto('./helloworld', require);
